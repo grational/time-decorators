@@ -29,7 +29,6 @@ project.ext {
 	spockVersion        = '1.0-groovy-2.4'
 	codenarcVersion     = '0.24.1'
 	slf4jVersion        = '1.7.21'
-	log4jVersion        = '2.6.2'
 }
 
 project.with {
@@ -41,7 +40,7 @@ project.with {
 }
 // [crosscompile] source and target java version
 allprojects {
-	sourceCompatibility = '1.8'
+	sourceCompatibility = '1.7'
 	targetCompatibility = "$sourceCompatibility"
 }
 
@@ -72,9 +71,6 @@ dependencies {
 
 	// Slf4j dependencies with log4j2 backend
 	compile "org.slf4j:slf4j-api:$slf4jVersion"
-	compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion"
-	compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
-	compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 
 	// We use the awesome Spock testing and specification framework
 	testCompile "org.spockframework:spock-core:$spockVersion"
