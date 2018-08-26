@@ -19,16 +19,16 @@ plugins {
 	// test code coverage plugin
 	id 'net.saliman.cobertura' version '2.5.4'
 	// finally! tag version is software version!
-	id 'pl.allegro.tech.build.axion-release' version '1.9.1'
+	id 'pl.allegro.tech.build.axion-release' version '1.9.3'
 }
 
 // [general] configuration
 project.ext {
-	groovyVersion       = '2.4.7'
-	gradleVersion       = '3.2.1'
-	spockVersion        = '1.0-groovy-2.4'
+	groovyVersion       = '2.5.2'
+	gradleVersion       = '4.9'
+	spockVersion        = '1.1-groovy-2.4'
 	codenarcVersion     = '0.24.1'
-	slf4jVersion        = '1.7.21'
+	slf4jVersion        = '1.7.25'
 }
 
 project.with {
@@ -40,7 +40,7 @@ project.with {
 }
 // [crosscompile] source and target java version
 allprojects {
-	sourceCompatibility = '1.7'
+	sourceCompatibility = '1.8'
 	targetCompatibility = sourceCompatibility
 }
 
@@ -49,14 +49,19 @@ repositories {
 }
 
 dependencies {
-	// Groovy language support
-	compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+	compile (
+		// Groovy language support
+		"org.codehaus.groovy:groovy:$groovyVersion",
+		// java.util.Date extension support
+		"org.codehaus.groovy:groovy-dateutil:$groovyVersion",
+		// Slf4j dependencies with log4j2 backend
+		"org.slf4j:slf4j-api:$slf4jVersion"
+	)
 
-	// Slf4j dependencies with log4j2 backend
-	compile "org.slf4j:slf4j-api:$slf4jVersion"
-
-	// We use the awesome Spock testing and specification framework
-	testCompile "org.spockframework:spock-core:$spockVersion"
+	testCompile (
+		// We use the awesome Spock testing and specification framework
+		"org.spockframework:spock-core:$spockVersion"
+	)
 }
 
 // codenarc groovy source analyses
@@ -64,7 +69,7 @@ codenarc{
 	toolVersion = "$codenarcVersion"
 
 	codenarcMain {
-		configFile = rootProject.file('config/codenarc/ruleset.groovy')
+		configFile = rootProject.file('conf/codenarc/ruleset.groovy')
 		exclude "**/package-info.*"
 		ignoreFailures true       // does not block builds
 		maxPriority1Violations 0
@@ -72,7 +77,7 @@ codenarc{
 		maxPriority3Violations 20
 	}
 	codenarcTest {
-		configFile = rootProject.file('config/codenarc/ruleset-test.groovy')
+		configFile = rootProject.file('conf/codenarc/ruleset-test.groovy')
 		ignoreFailures true
 		maxPriority1Violations 0
 		maxPriority2Violations 10
