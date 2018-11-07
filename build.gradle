@@ -24,7 +24,7 @@ plugins {
 
 // [general] configuration
 project.ext {
-	groovyVersion       = '2.5.2'
+	groovyVersion       = '2.5.3'
 	gradleVersion       = '4.9'
 	spockVersion        = '1.1-groovy-2.4'
 	codenarcVersion     = '0.24.1'
@@ -52,15 +52,15 @@ dependencies {
 	compile (
 		// Groovy language support
 		"org.codehaus.groovy:groovy:$groovyVersion",
-		// java.util.Date extension support
-		"org.codehaus.groovy:groovy-dateutil:$groovyVersion",
 		// Slf4j dependencies with log4j2 backend
 		"org.slf4j:slf4j-api:$slf4jVersion"
 	)
 
 	testCompile (
 		// We use the awesome Spock testing and specification framework
-		"org.spockframework:spock-core:$spockVersion"
+		"org.spockframework:spock-core:$spockVersion",
+		// java.util.Date extension support
+		"org.codehaus.groovy:groovy-dateutil:$groovyVersion"
 	)
 }
 
